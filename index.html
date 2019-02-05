@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>凤凰汽车·杭州站</title>
+		<script type="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/js/swiper.min.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+	</head>
+	<style>             /*公告栏样式*/
+		.huadong {width: 60rem;height:4rem;padding: 0.5rem 0 0.3rem 0; position:relative;font: 12px/1.5 "Hiragino Sans GB","Microsoft YaHei",simsun;margin-left: 203px;}
+	.huadong .huabox {  margin:0 auto; width: 80%; line-height: 4rem;}
+	.huadong .hdimg {float:left;line-height:3.5rem;}
+	.huadong .hdimg img { width: 100%; vertical-align:middle;}
+	.huadong h5 {font-size:1rem;float:left; line-height: 2.2rem; margin: 0.8rem 0 0 0; }
+	.huadong .gg_more { float: left;}
+	.huadong .gg_more a { font-size: 0.8rem; text-decoration:none;}
+	
+	.huadong .notice_active {
+			float: left;
+			width: 55%;
+			height: 4rem;
+			padding: 0;
+			overflow: hidden;
+			position: relative;
+	}
+	.huadong .notice_active li{list-style-type:none;line-height: 2.4rem;overflow: hidden;}
+	/*.huadong .notice_active li.notice_active_ch {}*/
+	.huadong .notice_active li.notice_active_ch span {color:#fff;font-size:1rem;display: block;overflow: hidden; width:80%;float: left; overflow: hidden;margin:0 0 2rem 0;}
+	.huadong .gg_more .news_ck {
+			float: left;
+			margin: 0 1rem 0 1rem;
+			color: #888;
+			width: 5rem;
+			height: 2rem;
+			line-height: 2rem;
+			display: block;
+			border: 1px solid #656972;
+			text-align: center;
+			border-radius: 0.7rem;
+			font-size: 0.8rem;
+			margin-top: 1rem;
+		}
+	.huadong .gg_more .news_more {
+		
+	}
+	.huadong .notice_active li.notice_active_ch em {text-align:right;float:right;color:#888;font-size:0.8rem;font-style:normal;  }
+	</style>
+	<style>
+		/*弹幕样式*/
+		
+		#audio_btn {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			z-index: 999999;
+		}
+		
+		#reply-write {
+			display: block;
+			width: 100%;
+			border: none;
+			font-size: 1em;
+			line-height: 20px;
+			margin: 0;
+			padding: 0.3em;
+			resize: none;
+			font-family: inherit;
+			color: inherit;
+			box-sizing: border-box;
+			border: 1px solid #FE0002;
+			border-radius: 4px 0 0 4px;
+		}
+		
+		.send-btn {
+			float: left;
+		}
+		
+		#conts p {
+			display: inline-block;
+			padding: 3px 0px 3px 0px;
+			margin: 0px;
+		}
+		
+		.dm .d_screen .d_del {
+			width: 38px;
+			height: 38px;
+			background: #600;
+			display: block;
+			text-align: center;
+			line-height: 38px;
+			text-decoration: none;
+			font-size: 20px;
+			color: #fff;
+			border-radius: 19px;
+			border: 1px solid #fff;
+			position: absolute;
+			top: 10px;
+			right: 20px;
+			z-index: 3;
+			display: none;
+		}
+		
+		.dm .d_screen .d_del:hover {
+			background: #f00;
+		}
+		
+		.dm .d_screen .d_mask {
+			width: 255px;
+			height: 200px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0.5;
+			filter: alpha(opacity=50);
+			z-index: 1;
+		}
+		
+		.dm .d_screen .d_show {
+			position: relative;
+			z-index: 2;
+		}
+		
+		.dm .d_screen .d_show div {
+			color: #fff;
+			background: rgba(1, 1, 1, .4);
+			border-radius: 5px;
+			margin: 5px;
+		}
+		
+		#showmeg p {
+			font-weight: bold;
+			text-align: center;
+		}
+		
+		.d_show div {
+			width: 230px;
+			font-size: 12px;
+			color: #fff;
+			line-height: 20px;
+		}
+		
+		.d_show img {
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			padding: 2px;
+		}
+		
+		.d_show p {
+			text-overflow: ellipsis;
+		}
+		
+		#audio_btn {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			z-index: 999999;
+		}
+		
+		.NYwishes {
+			width: 255px;
+			height: 300px;
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			background: rgba(0, 0, 0, .6);
+		}
+		
+		.NYwishes h2 {
+			margin: 5px 0;
+			font-family: "微软雅黑";
+			font-size: 18px;
+			text-align: center;
+			color: #fff;
+		}
+		
+		.NYwishes .swiper-container {
+			height: 250px;
+		}
+		
+		#conts {
+			margin: 0 auto;
+			padding-left: 2%;
+			padding-right: 2%;
+			height: 280px;
+		}
+		
+		.NYwishes .send {
+			position: absolute;
+			left: 0%;
+			bottom: 0px;
+			height: 40px;
+			width: 100%;
+			z-index: 99999;
+		}
+		
+		.NYwishes .send .input {
+			width: 155px;
+			;
+			float: left;
+			margin-left: 5%;
+		}
+		
+		.NYwishes .send-btn a {
+			background-color: #e03f44;
+			color: #fff;
+			width: 80px;
+			height: 30px;
+			display: inline-block;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+			border-radius: 0 4px 4px 0;
+		}
+	</style>
+	<style>
+		/*页面样式*/
+		
+		* {
+			margin: 0;
+			padding: 0;
+			-webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+		}
+		
+		.a {
+			width: 100%;
+			height: 721px;
+			background-image: url(https://img.auto.ifeng.com/uploadfile/2019/0130/20190130031225572.png);
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		
+		.b {
+			width: 100%;
+			height: 461px;
+			background-image: url(https://img.auto.ifeng.com/uploadfile/2019/0130/20190130041630572.png);
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		.b5{
+			width: 100%;
+			height: 476px;
+			background-image: url(https://img.auto.ifeng.com/uploadfile/2019/0130/20190130041950496.png);
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		.b2 {
+			width: 255px;
+			height: 300px;
+			position: fixed;
+			/*border: 1px solid red;*/
+			right: 0;
+		}
+		
+		.c {
+			width: 100%;
+			height: 786px;
+			background-image: url(https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042209819.png);
+			background-position: center;
+			background-repeat: no-repeat;
+			overflow: hidden;
+		}
+		.d{
+			width: 100%;
+			height: 679px;
+			background-image: url(https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042258179.png);
+			background-position: center;
+			background-repeat: no-repeat;
+			overflow: hidden;
+			
+		}
+		.d1{
+			width: 1000px;
+			height: 161px;
+			/*border: 1px solid black;*/
+			margin: 0 auto;
+			margin-top: 233px;	
+			cursor: pointer;
+		}
+		.d1:hover{
+			/*background-color: #fbfafa;
+			transition: all 1.1s;*/
+		}
+		.oi{
+			width: 640px;
+			height: 327px;
+			margin: 0 auto;
+			margin-top: 261px;
+			/*border: 1px solid red;*/
+			background-color: #660000;
+			position: relative;
+			/*margin-left: 1px;*/
+		}
+		.d2{
+			width: 277px;
+			height: 161px;
+			/*border: 1px solid blue;*/
+			display: inline-block;
+			margin-left: 40px;
+		}
+		.e{
+			width: 100%;
+			height: 1120px;
+			/*border: 1px solid black;*/
+			background-image: url(https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042351694.png);
+			background-position: center;
+			background-repeat: no-repeat;
+			overflow: hidden;
+		}
+		.c1{
+			width: 1000px;
+			height: 50px;
+			/*border: 1px solid black;*/
+			margin: 0 auto;
+			margin-top: 148px;
+		}
+		.e1{
+			width: 1000px;
+			height: 811px;
+			/*border: 1px solid black;*/
+			margin: 0 auto;
+			margin-top: 117px;
+		}
+		.h{
+			width: 254px;
+			height: 316px;
+			background-color: #fff;
+			display: inline-block;
+			margin-left: 57px;
+		}
+		.h2{
+			width: 254px;
+			height: 316px;
+			background-color: #fff;
+			display: inline-block;
+			margin-left: 57px;
+			margin-top: 20px;
+		}
+	</style>
+	<style>             /*导购样式*/
+		.j2{
+       	width: 303px;
+       	height: 350px;
+       	/*border: 1px solid red;*/
+       	position: relative;
+       	overflow:hidden;
+       	cursor:pointer;
+       	display: inline-block;
+       	margin-left: 20px;
+       }
+       .j3{
+       	width: 303px;
+       	height: 350px;
+       	/*border: 1px solid red;*/
+       	background:rgba(14,14,14,0.6);
+        position: absolute;
+        top: 282px;
+        transition: all 0.8s;
+       }
+       .j2:hover .j3{
+        	top: 0px;
+        }
+        h3{
+        	font-size: 20px;
+        	color: white;
+        	text-align: center;
+        	margin-top: 24px;
+        }
+        .j3 p{
+        	color: white;
+        	margin-top: 127px;
+        	text-align: center;
+        }
+	</style>
+	<body>
+		<div class="a"></div>
+		<div class="b">
+			<div class="b2">
+				<div class="NYwishes">
+					<h2>新年愿望墙</h2>
+					<div class="swiper-container">
+						<div id="conts">
+							<div class="dm">
+								<!--d_screen start-->
+								<div class="d_screen">
+									<div class="d_mask"></div>
+									<div class="d_show">
+										<div></div>
+										<div></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="send">
+						<div class="input">
+							<input id="reply-write" name="content" type="text" value="" placeholder="说出你的愿望">
+						</div>
+						<div class="send-btn">
+							<a onClick="send_reply2()">发送</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="b5"></div>
+		<div class="c">
+			<div class="c1">
+				<div class="huadong">
+	<div class="huabox">
+	<!--<div class="hdimg"><img src="img/lingdang.png"></div>-->
+	<h5>【春节出行攻略】</h5>
+		<div class="notice_active">
+			<ul>
+				<li class="notice_active_ch">
+					<a href="http://auto.ifeng.com/hangzhou/xinwen/2019/0129/37296.shtml"><span>春节期间杭州道路管控 出行攻略请收下</span> </a>               
+					
+					<em></em>
+				</li>
+				<li class="notice_active_ch">
+					<a href="http://auto.ifeng.com/hangzhou/xinwen/2019/0128/37287.shtml"><span>2019春节杭州高速避堵指南</span></a>           
+					<em></em>
+				</li>
+			</ul>   
+	
+		</div>
+
+		
+	</div>
+</div>
+			</div>
+			<div class="oi">
+				<iframe  width="100%" height="100%" src="http://player.youku.com/embed/XNDA0NDE0MTM3Mg==" frameborder=0 allowfullscreen></iframe>
+		</div>
+		</div>
+		<div class="d">
+			<div class="d1">
+				<div class="j1">
+     							<div class="j2">
+     								<a href="http://auto.ifeng.com/hangzhou/daodian/2019/0122/37221.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042650614.jpg" /></a>
+     								<a href="http://auto.ifeng.com/hangzhou/daodian/2019/0122/37221.shtml" target="_blank"><div class="j3">
+     								<h3>雷克萨斯UX</h3>
+     								<p class="p2">精致与豪华并存 雷克萨斯UX实拍</p>
+     							</div>
+     								</a>
+     							<!--<div class="k1">
+     								<p>作品描述：摄于2016年4月雅加达码头的一个清晨，他的双手由于常年累月堆积的污垢所造成的纹理深深的震撼了我。</p>
+     							</div>-->
+     							</div>
+     							<div class="j2">
+     								<a href="http://auto.ifeng.com/hangzhou/daodian/2019/0122/37221.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042653105.jpg" /></a>
+     								<a href="http://auto.ifeng.com/hangzhou/daodian/2019/0122/37221.shtml" target="_blank"><div class="j3">
+     								<h3>比亚迪唐DM</h3>
+     								<p class="p2">风驰电掣·疾如雷电-比亚迪唐DM试驾体验</p>
+     							</div>
+     							</a>
+     							<!--<div class="k1">
+     								<p>作品描述：“照片上的是我3岁的女儿，她正在使鬼脸。 这是2017年在巴厘岛岛上的海滩上用iphone 6s拍摄的。</p>
+     							</div>-->
+     							</div>
+     							<div class="j2">
+     								<a href="http://auto.ifeng.com/hangzhou/daodian/2019/0122/37211.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042652600.jpg" /></a>
+     								<a href="http://auto.ifeng.com/hangzhou/daodian/2019/0122/37211.shtml" target="_blank"><div class="j3">
+     								<h3>福特领界</h3>
+     								<p class="p2">“智”向远大 高品质SUV福特领界店拍</p>
+     							</div>
+     							</a>
+     							<!--<div class="k1">
+     								<p>作品描述：“这张照片是在一个多云的早晨一个池塘拍摄的。 我喜欢在水中的反射，因为多云的天空是黑暗和光滑的。</p>
+     							</div>-->
+     							</div>
+     						</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		<div class="e">
+			<div class="e1">
+				<div class="h">
+					<a href="http://auto.ifeng.com/hangzhou/jiangjia/2019/0130/37303.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042748219.jpg" /></a>
+				</div>
+				<div class="h">
+					<a href="http://auto.ifeng.com/hangzhou/jiangjia/2019/0129/37294.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042749150.jpg" /></a>
+				</div>
+				<div class="h">
+					<a href="http://auto.ifeng.com/hangzhou/jiangjia/2019/0129/37290.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042749260.jpg" /></a>
+				</div>
+				<div class="h2">
+					<a href="http://auto.ifeng.com/hangzhou/jiangjia/2019/0129/37280.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042750388.jpg" /></a>
+				</div>
+				<div class="h2">
+					<a href="http://auto.ifeng.com/hangzhou/jiangjia/2019/0130/37300.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042751710.jpg" /></a>
+				</div>
+				<div class="h2">
+					<a href="http://auto.ifeng.com/hangzhou/jiangjia/2019/0130/37315.shtml" target="_blank"><img src="https://img.auto.ifeng.com/uploadfile/2019/0130/20190130042752374.jpg" /></a>
+				</div>
+			</div>
+		</div>
+	</body>
+<script>
+			function send_reply2() {
+				var content = $("#reply-write").val();
+				if($.trim(content) == "") {
+					alert("亲，请说出你的新年愿望！");
+					return false;
+				}
+				var text = $("#reply-write").val();
+				input(text)
+				$("#reply-write").val("");
+				init_screen();
+				if($(".d_show").height() > 180) {
+					$($(".d_show").children("div").get(0)).toggle(1000);
+					$($(".d_show").children("div").get(0)).remove();
+				}
+			}
+			$(function() {
+				var date = [{
+					'id': 1,
+					'val': '希望2019能脱单'
+				}, {
+					'id': 2,
+					'val': '2019对我好一点'
+				}, {
+					'id': 3,
+					'val': '赚大钱呦！！！！'
+				}, {
+					'id': 4,
+					'val': '我的爱豆永远走花路'
+				}, {
+					'id': 4,
+					'val': '暴富'
+				}, {
+					'id': 4,
+					'val': '嫁给王思聪'
+				}, {
+					'id': 4,
+					'val': '快乐在你身边绕'
+				}, {
+					'id': 4,
+					'val': '好运相伴不会少'
+				}, {
+					'id': 4,
+					'val': '远嫁迪拜'
+				}];
+				var i = 0;
+				setInterval(function() {
+					if($(".d_show").height() < 100) {
+						if(i < date.length) {
+							input(date[i].val)
+							i++;
+						} else {
+							i = 0
+							input(date[i].val)
+							i++;
+						}
+					} else {
+						init_screen();
+						$($(".d_show").children("div").get(0)).remove();
+						if(i < date.length) {
+							input(date[i].val)
+							i++;
+						} else {
+							i = 0
+							input(date[i].val)
+							i++;
+						}
+					}
+				}, 1000);
+
+				$("#reply-write").keyup(function(ev) {
+					var ev = ev || event;
+					if(ev.keyCode == 13) {
+						send_reply2();
+					}
+				});
+			})
+
+			function init_screen() {
+				$(".d_show").find("div").show().each(function() {
+					setInterval(function() {
+						$($(".d_show").children("div").get(0)).toggle(1000);
+					}, 1000);
+				});
+			}
+
+			function input(val) {
+				var div = $("<div><img src='./75643.jpg'>" + val + "</div>");
+				$(".d_show").append(div.fadeIn(1000));
+			}
+		</script>
+		<script type="text/javascript">
+	function timer(opj){
+		$(opj).find('ul').animate({
+			marginTop : "-3.5rem"  
+			},500,function(){  
+			$(this).css({marginTop : "0.7rem"}).find("li:first").appendTo(this);  
+		})  
+	}
+	$(function(){ 
+		var num = $('.notice_active').find('li').length;
+		if(num > 1){
+		   var time=setInterval('timer(".notice_active")',3500);
+			$('.gg_more a').mousemove(function(){
+				clearInterval(time);
+			}).mouseout(function(){
+				time = setInterval('timer(".notice_active")',3500);
+			}); 
+		}
+		
+		$(".news_ck").click(function(){
+			location.href = $(".notice_active .notice_active_ch").children(":input").val();
+		})
+	});
+</script>
+</html>
